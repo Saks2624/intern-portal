@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>She Can - Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="dashboard-page">
+  <div class="container">
+    <h1 class="title">Welcome, <span id="internName">Intern</span></h1>
+    <p class="info">Referral Code: <strong id="referralCode">loading...</strong></p>
+    <p class="info">Total Donations Raised: ₹<strong id="donations">loading...</strong></p>
+
+    <h2 class="section-title">Rewards</h2>
+    <div class="rewards">
+      <div class="reward-card">🎖️ Silver Donor Badge</div>
+      <div class="reward-card">📜 Certificate of Appreciation</div>
+    </div>
+  </div>
+  <h2 class="section-heading">🏆 Leaderboard</h2>
+<div class="leaderboard">
+  <div class="leaderboard-entry">
+    <span class="rank">1.</span>
+    <span class="name">Aarohi Sharma</span>
+    <span class="donation">₹58,000</span>
+  </div>
+  <div class="leaderboard-entry">
+    <span class="rank">2.</span>
+    <span class="name">Sakshi More</span>
+    <span class="donation">₹42,000</span>
+  </div>
+  <div class="leaderboard-entry">
+    <span class="rank">3.</span>
+    <span class="name">Isha Patel</span>
+    <span class="donation">₹35,000</span>
+  </div>
+  <div class="leaderboard-entry">
+    <span class="rank">4.</span>
+    <span class="name">Tanya Gupta</span>
+    <span class="donation">₹28,000</span>
+  </div>
+</div>
+
+
+  <script>
+    document.getElementById("internName").textContent = localStorage.getItem("internName") || "Intern";
+
+    fetch("http://localhost:5000/api/intern")
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById("referralCode").textContent = data.referralCode;
+        document.getElementById("donations").textContent = data.donations;
+      });
+  </script>
+  <script>
+  fetch('http://localhost:5000/api/intern')
+    .then(response => response.json())
+    .then(data => {
+      // Fill the dashboard with data
+      document.getElementById('name').textContent = data.name;
+      document.getElementById('referral').textContent = data.referralCode;
+      document.getElementById('donations').textContent = `₹${data.donations}`;
+    })
+    .catch(error => console.error('Error fetching intern data:', error));
+</script>
+
+</body>
+</html>
+
